@@ -9,6 +9,7 @@ import com.study.security.dto.client.ClientResponseDTO;
 import com.study.security.dto.client.ClientUpdateRequestDTO;
 import com.study.security.exception.ErrorHandler;
 import com.study.security.service.ClientService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/clients")
 public class ClientController extends ErrorHandler {
     private final ClientService clientService;
-
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @GetMapping
     public List<ClientResponseDTO> findAll() {

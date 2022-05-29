@@ -1,6 +1,9 @@
 package com.study.security.service;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.study.security.dto.client.ClientRequestDTO;
 import com.study.security.dto.client.ClientResponseDTO;
 import com.study.security.dto.client.ClientUpdateRequestDTO;
@@ -15,11 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Service
 @AllArgsConstructor
+@Service
 public class ClientService {
     private final ClientRepository clientRepository;
 
