@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  security-api:
+    container_name: security-api
+    build: .
+    env_file:
+      - ./.env
+    ports:
+      - "8080:8080"
+    networks:
+      - security-api-network
+    depends_on:
+      - security-api-db
+
+  security-api-db:
+    image: mysql:8.0.27
+    container_name: security-api-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - security_api_mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=library
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - security-api-network
+    security_opt:
+      - seccomp:unconfined
+
+networks:
+  security-api-network:
+    driver: bridge
+
+volumes:
+  security_api_mysql:
+    driver: local
