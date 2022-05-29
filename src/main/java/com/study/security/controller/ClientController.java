@@ -1,11 +1,14 @@
 package com.study.security.controller;
 
+import javax.validation.Valid;
+
+import java.util.List;
+
 import com.study.security.dto.client.ClientRequestDTO;
 import com.study.security.dto.client.ClientResponseDTO;
 import com.study.security.dto.client.ClientUpdateRequestDTO;
 import com.study.security.exception.ErrorHandler;
 import com.study.security.service.ClientService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
