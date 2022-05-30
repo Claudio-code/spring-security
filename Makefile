@@ -9,3 +9,6 @@ start:
 
 run-tests:
 	mvn clean test
+
+run-dev:
+	./run-app-dev.sh
