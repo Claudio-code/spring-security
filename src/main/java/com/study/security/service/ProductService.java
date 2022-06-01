@@ -58,4 +58,20 @@ public class ProductService {
         productRepository.save(product);
         return ProductResponseDTOFactory.make(product);
     }
+
+    public ProductResponseDTO path(ProductUpdateRequestDTO productUpdateRequestDTO) {
+        final Product product = productRepository.findById(productUpdateRequestDTO.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (!product.getName().equals(productUpdateRequestDTO.getName())) {
+            product.setName(productUpdateRequestDTO.getName());
+        }
+        if (!product.getDescription().equals(productUpdateRequestDTO.getDescription())) {
+            product.setDescription(productUpdateRequestDTO.getDescription());
+        }
+        if (!product.getPrice().equals(productUpdateRequestDTO.getPrice())) {
+            product.setPrice(productUpdateRequestDTO.getPrice());
+        }
+        productRepository.save(product);
+        return ProductResponseDTOFactory.make(product);
+    }
 }
