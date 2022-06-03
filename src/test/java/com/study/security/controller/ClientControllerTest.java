@@ -3,6 +3,7 @@ package com.study.security.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.security.dto.client.ClientRequestDTO;
 import com.study.security.dto.client.ClientResponseDTO;
+import com.study.security.dto.client.ClientUpdateRequestDTO;
 import com.study.security.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -110,5 +111,48 @@ class ClientControllerTest {
         mvc.perform(request)
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    void shouldDeleteClientTest() throws Exception {
+        String url = CLIENT_API + "/" + CLIENT_ID;
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(url);
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldSearchClientTest() throws Exception {
+        String url = CLIENT_API + "/search";
+        ClientResponseDTO responseDTO = new ClientResponseDTO(CLIENT_ID, CLIENT_NAME);
+        ClientUpdateRequestDTO clientUpdateRequestDTO = new ClientUpdateRequestDTO(CLIENT_ID, CLIENT_NAME);
+        BDDMockito.given(clientService.search(Mockito.any(ClientUpdateRequestDTO.class))).willReturn(List.of(responseDTO));
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(clientUpdateRequestDTO));
+
+        mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(CLIENT_ID))
+                .andExpect(jsonPath("$[0].name").value(responseDTO.name()));
+    }
+
+    @Test
+    void shouldUpdateClientTest() throws Exception {
+        ClientUpdateRequestDTO clientUpdateRequestDTO = new ClientUpdateRequestDTO(CLIENT_ID, CLIENT_NAME);
+        ClientResponseDTO responseDTO = new ClientResponseDTO(CLIENT_ID, CLIENT_NAME);
+        BDDMockito.given(clientService.updateAllClient(Mockito.any(ClientUpdateRequestDTO.class))).willReturn(responseDTO);
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(CLIENT_API)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(clientUpdateRequestDTO));
+
+        mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(CLIENT_ID))
+                .andExpect(jsonPath("name").value(responseDTO.name()));
     }
 }

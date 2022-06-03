@@ -49,7 +49,7 @@ public class ProductService {
         productRepository.delete(product);
     }
 
-    public ProductResponseDTO updateAllProduct(ProductUpdateRequestDTO productUpdateRequestDTO) {
+    public ProductResponseDTO update(ProductUpdateRequestDTO productUpdateRequestDTO) {
         final Product product = productRepository.findById(productUpdateRequestDTO.getId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         product.setName(productUpdateRequestDTO.getName());
@@ -59,7 +59,7 @@ public class ProductService {
         return ProductResponseDTOFactory.make(product);
     }
 
-    public ProductResponseDTO path(ProductUpdateRequestDTO productUpdateRequestDTO) {
+    public ProductResponseDTO patch(ProductUpdateRequestDTO productUpdateRequestDTO) {
         final Product product = productRepository.findById(productUpdateRequestDTO.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (!product.getName().equals(productUpdateRequestDTO.getName())) {

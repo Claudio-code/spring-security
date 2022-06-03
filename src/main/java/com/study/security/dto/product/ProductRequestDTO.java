@@ -1,7 +1,6 @@
 package com.study.security.dto.product;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor

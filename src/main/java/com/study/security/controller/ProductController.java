@@ -28,13 +28,13 @@ public class ProductController extends ErrorHandler {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public ProductResponseDTO update(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
-        return productService.updateAllProduct(productUpdateRequestDTO);
+        return productService.update(productUpdateRequestDTO);
     }
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDTO pacth(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
-        return productService.path(productUpdateRequestDTO);
+    public ProductResponseDTO patch(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
+        return productService.patch(productUpdateRequestDTO);
     }
 
     @GetMapping("{id}")

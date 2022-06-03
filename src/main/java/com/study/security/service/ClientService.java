@@ -68,7 +68,8 @@ public class ClientService {
                 .build();
         Example<Client> exampleClient = ExampleFactory.make(clientToSearch);
         List<Client> clients = clientRepository.findAll(exampleClient);
-        return clients.stream().map(ClientResponseDTOFactory::makeClientResponseDTO)
-                .collect(Collectors.toList());
+        return clients.stream()
+                .map(ClientResponseDTOFactory::makeClientResponseDTO)
+                .toList();
     }
 }

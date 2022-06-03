@@ -50,7 +50,7 @@ public class ClientController extends ErrorHandler {
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public ClientResponseDTO update(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO) {
         return clientService.updateAllClient(clientUpdateRequestDTO);
     }
