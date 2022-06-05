@@ -1,9 +1,5 @@
 package com.study.security.controller;
 
-import javax.validation.Valid;
-
-import java.util.List;
-
 import com.study.security.dto.client.ClientRequestDTO;
 import com.study.security.dto.client.ClientResponseDTO;
 import com.study.security.dto.client.ClientUpdateRequestDTO;
@@ -20,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
