@@ -1,9 +1,6 @@
 package com.study.security.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +30,7 @@ public class ItemOrder {
     @ManyToOne
     private Product product;
 
+    @Setter
     @Column
     private Integer amount;
 }

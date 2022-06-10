@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@Setter
 @Getter
 @Table(name = "orders")
 @NoArgsConstructor

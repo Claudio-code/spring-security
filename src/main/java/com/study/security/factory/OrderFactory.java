@@ -11,12 +11,10 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderFactory {
-    public static Order make(Client client, List<ItemOrder> itemOrders) {
+    public static Order make() {
         final Date currentDate = new Date();
         return Order
                 .builder()
-                .itemOrders(itemOrders)
-                .client(client)
                 .createdAt(currentDate)
                 .updatedAt(currentDate)
                 .build();
