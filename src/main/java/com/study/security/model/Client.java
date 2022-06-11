@@ -34,7 +34,6 @@ public class Client {
     @Column
     private String name;
 
-
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
 }

@@ -21,24 +21,30 @@ public class ItemOrderService {
     private final ProductRepository productRepository;
     private final ItemOrderRepository itemOrderRepository;
 
-    public void process(ItemRequestDTO itemRequestDTO, Order order) {
+    public void delete(ItemOrder itemOrder) {
+        itemOrderRepository.delete(itemOrder);
+    }
+
+    public ItemOrder process(ItemRequestDTO itemRequestDTO, Order order) {
         final Product product = productRepository.findById(itemRequestDTO.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         final Optional<ItemOrder> itemOrderFound = findOne(product, order);
-        itemOrderFound.ifPresentOrElse(
-                itemOrder -> update(itemOrder, itemRequestDTO),
-                () -> create(product, itemRequestDTO, order)
-        );
+        if (itemOrderFound.isPresent()) {
+            return update(itemOrderFound.get(), itemRequestDTO);
+        }
+        return create(product, itemRequestDTO, order);
     }
 
-    private void create(Product product, ItemRequestDTO itemRequestDTO, Order order) {
+    private ItemOrder create(Product product, ItemRequestDTO itemRequestDTO, Order order) {
         final ItemOrder itemOrderToSave = ItemOrderFactory.make(product, itemRequestDTO, order);
         itemOrderRepository.save(itemOrderToSave);
+        return itemOrderToSave;
     }
 
-    private void update(ItemOrder itemOrderToUpdate, ItemRequestDTO itemRequestDTO) {
+    private ItemOrder update(ItemOrder itemOrderToUpdate, ItemRequestDTO itemRequestDTO) {
         itemOrderToUpdate.setAmount(itemRequestDTO.getQuantity());
         itemOrderRepository.save(itemOrderToUpdate);
+        return itemOrderToUpdate;
     }
 
     private Optional<ItemOrder> findOne(Product product, Order order) {
