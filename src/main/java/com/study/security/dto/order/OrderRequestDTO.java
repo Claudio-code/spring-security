@@ -2,12 +2,14 @@ package com.study.security.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.study.security.dto.order.item.ItemRequestDTO;
+import com.study.security.enuns.OrderStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @AllArgsConstructor
@@ -24,4 +26,6 @@ public class OrderRequestDTO {
 
     @JsonProperty("items")
     private List<ItemRequestDTO> listItems;
+
+    private OrderStatusEnum status;
 }

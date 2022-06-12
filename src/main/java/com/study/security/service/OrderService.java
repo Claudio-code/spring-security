@@ -5,7 +5,6 @@ import com.study.security.dto.order.OrderResponseDTO;
 import com.study.security.factory.OrderFactory;
 import com.study.security.factory.OrderResponseDTOFactory;
 import com.study.security.model.Client;
-import com.study.security.model.ItemOrder;
 import com.study.security.model.Order;
 import com.study.security.repository.ClientRepository;
 import com.study.security.repository.OrderRepository;
@@ -43,11 +42,7 @@ public class OrderService {
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         final Order order = OrderFactory.make();
         order.setClient(client);
-        final List<ItemOrder> itemOrders = orderRequestDTO.getListItems()
-                .stream().map(itemRequestDTO -> itemOrderService.process(itemRequestDTO, null)).toList();
-
-        order.setItemOrders(itemOrders);
-        orderRepository.save(order);
+        createAndUpdateOrderAndItems(orderRequestDTO, order);
     }
 
     public void update(Long id, OrderRequestDTO orderRequestDTO) {
@@ -67,6 +62,10 @@ public class OrderService {
         final Client client = clientRepository.findById(orderRequestDTO.getClientId())
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         order.setClient(client);
+        order.updateDate();
+        if (orderRequestDTO.getStatus() != null) {
+            order.setStatus(orderRequestDTO.getStatus());
+        }
         orderRepository.save(order);
         orderRequestDTO.getListItems()
                 .forEach(itemRequestDTO -> itemOrderService.process(itemRequestDTO, order));
